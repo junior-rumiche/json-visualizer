@@ -7,43 +7,90 @@
     <title>JSON Visualizer Pro</title>
     <script>
       // On page load or when changing themes, best to add inline in `head` to avoid FOUC
+      // Theme (light/dark)
       if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
         document.documentElement.classList.add('dark')
       } else {
         document.documentElement.classList.remove('dark')
       }
+      // Accent color theme
+      const themeColor = localStorage.getItem('themeColor') || 'cyan';
+      document.documentElement.dataset.themeColor = themeColor;
     </script>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
       tailwind.config = {
-        darkMode: 'class', // enable dark mode based on class
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              primary: {
+                DEFAULT: 'rgb(var(--color-primary) / <alpha-value>)',
+                dark: 'rgb(var(--color-primary-dark) / <alpha-value>)',
+                bg: 'rgb(var(--color-primary-bg) / <alpha-value>)',
+                'bg-dark': 'rgb(var(--color-primary-bg-dark) / <alpha-value>)',
+              },
+            }
+          }
+        }
       }
     </script>
     <style>
+      /* --- Base & Syntax Color Variables --- */
+      
+      /* --- Cyan Theme (Default) --- */
+      :root, [data-theme-color="cyan"] {
+        --color-primary: 6 182 212; --color-primary-dark: 34 211 238; --color-primary-bg: 165 243 252; --color-primary-bg-dark: 20 83 100;
+        --syntax-string: #059669; --syntax-number: #D97706; --syntax-key: #0284C7; --syntax-boolean: #7C2DCF; --syntax-null: #E11D48;
+      }
+      .dark:root, .dark [data-theme-color="cyan"] {
+        --syntax-string: #34D399; --syntax-number: #FBBF24; --syntax-key: #38BDF8; --syntax-boolean: #A78BFA; --syntax-null: #FB7185;
+      }
+
+      /* --- Violet Theme --- */
+      [data-theme-color="violet"] {
+        --color-primary: 139 92 246; --color-primary-dark: 167 139 250; --color-primary-bg: 221 214 254; --color-primary-bg-dark: 76 29 149;
+        --syntax-string: #0D9488; --syntax-number: #EA580C; --syntax-key: #2563EB; --syntax-boolean: #8B5CF6; --syntax-null: #DC2626;
+      }
+      .dark [data-theme-color="violet"] {
+        --syntax-string: #2DD4BF; --syntax-number: #F97316; --syntax-key: #3B82F6; --syntax-boolean: #A78BFA; --syntax-null: #F87171;
+      }
+      
+      /* --- Emerald Theme --- */
+       [data-theme-color="emerald"] {
+        --color-primary: 16 185 129; --color-primary-dark: 52 211 153; --color-primary-bg: 167 243 208; --color-primary-bg-dark: 6 78 59;
+        --syntax-string: #10B981; --syntax-number: #F59E0B; --syntax-key: #0EA5E9; --syntax-boolean: #EAB308; --syntax-null: #EF4444;
+      }
+      .dark [data-theme-color="emerald"] {
+        --syntax-string: #34D399; --syntax-number: #FBBF24; --syntax-key: #38BDF8; --syntax-boolean: #FDE047; --syntax-null: #F87171;
+      }
+
+      /* --- Rose Theme --- */
+      [data-theme-color="rose"] {
+        --color-primary: 244 63 94; --color-primary-dark: 251 113 133; --color-primary-bg: 254 205 211; --color-primary-bg-dark: 136 19 55;
+        --syntax-string: #16A34A; --syntax-number: #D97706; --syntax-key: #0369A1; --syntax-boolean: #9333EA; --syntax-null: #F43F5E;
+      }
+      .dark [data-theme-color="rose"] {
+        --syntax-string: #4ADE80; --syntax-number: #FBBF24; --syntax-key: #38BDF8; --syntax-boolean: #C084FC; --syntax-null: #FB7185;
+      }
+      
+      /* --- Amber Theme --- */
+      [data-theme-color="amber"] {
+        --color-primary: 245 158 11; --color-primary-dark: 251 191 36; --color-primary-bg: 254 229 174; --color-primary-bg-dark: 120 53 15;
+        --syntax-string: #22C55E; --syntax-number: #F59E0B; --syntax-key: #3B82F6; --syntax-boolean: #8B5CF6; --syntax-null: #EF4444;
+      }
+      .dark [data-theme-color="amber"] {
+        --syntax-string: #4ADE80; --syntax-number: #FBBF24; --syntax-key: #60A5FA; --syntax-boolean: #A78BFA; --syntax-null: #F87171;
+      }
+
       /* Custom scrollbar for a more modern look */
-      ::-webkit-scrollbar {
-        width: 8px;
-        height: 8px;
-      }
-      ::-webkit-scrollbar-track {
-        background: #f1f5f9; /* light mode track */
-      }
-      .dark ::-webkit-scrollbar-track {
-        background: #1e293b; /* dark mode track */
-      }
-      ::-webkit-scrollbar-thumb {
-        background: #cbd5e1; /* light mode thumb */
-        border-radius: 4px;
-      }
-      .dark ::-webkit-scrollbar-thumb {
-        background: #475569; /* dark mode thumb */
-      }
-      ::-webkit-scrollbar-thumb:hover {
-        background: #94a3b8; /* light mode thumb hover */
-      }
-      .dark ::-webkit-scrollbar-thumb:hover {
-        background: #64748b; /* dark mode thumb hover */
-      }
+      ::-webkit-scrollbar { width: 8px; height: 8px; }
+      ::-webkit-scrollbar-track { background: #f1f5f9; }
+      .dark ::-webkit-scrollbar-track { background: #1e293b; }
+      ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+      .dark ::-webkit-scrollbar-thumb { background: #475569; }
+      ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+      .dark ::-webkit-scrollbar-thumb:hover { background: #64748b; }
     </style>
   <script type="importmap">
 {

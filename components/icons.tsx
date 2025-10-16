@@ -39,3 +39,10 @@ export const MoonIcon: React.FC<IconProps> = (props) => (
     <path strokeLinecap="round" strokeLinejoin="round" d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z" />
   </svg>
 );
+
+export const PaletteIcon: React.FC<IconProps> = (props) => (
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" {...props}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M4.098 19.902a3.75 3.75 0 005.304 0l6.401-6.402a3.75 3.75 0 00-.625-6.25a3.75 3.75 0 00-6.25-.625l-6.402 6.401a3.75 3.75 0 000 5.304z" />
+        <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 12c0-2.623-1.043-5.043-2.93-6.93a9.75 9.75 0 10-10.563 10.563c1.887 1.887 4.307 2.93 6.93 2.93s5.043-1.043 6.93-2.93c1.887-1.887 2.93-4.307 2.93-6.93z" />
+    </svg>
+);

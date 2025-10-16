@@ -7,21 +7,21 @@ const highlightJson = (jsonStr: string): string => {
   // Basic HTML escaping for safety
   jsonStr = jsonStr.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
   
-  // Regex to find JSON tokens and wrap them in spans with Tailwind CSS classes
+  // Regex to find JSON tokens and wrap them in spans with CSS variables for color
   return jsonStr.replace(
     /("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g,
     (match) => {
-      let className = 'text-amber-600 dark:text-amber-400'; // Default for numbers
+      let colorVar = '--syntax-number';
       if (/^"/.test(match)) {
-        className = /:$/.test(match) 
-          ? 'text-sky-600 dark:text-sky-400' // Key
-          : 'text-emerald-600 dark:text-emerald-400'; // String
+        colorVar = /:$/.test(match) 
+          ? '--syntax-key'
+          : '--syntax-string';
       } else if (/true|false/.test(match)) {
-        className = 'text-violet-600 dark:text-violet-400'; // Boolean
+        colorVar = '--syntax-boolean';
       } else if (/null/.test(match)) {
-        className = 'text-rose-500 dark:text-rose-400'; // Null
+        colorVar = '--syntax-null';
       }
-      return `<span class="${className}">${match}</span>`;
+      return `<span style="color: var(${colorVar})">${match}</span>`;
     }
   );
 };
